@@ -35,7 +35,7 @@ public class GLGraphPlotter {
 		SAMPLES_IN_SCREEN = max_plot_points;
 		
 		mSamplesBuffer = new SamplesBuffer(SAMPLES_IN_SCREEN);
-		mGraphRenderer = new GraphRenderer(mSamplesBuffer, r, g, b);
+		mGraphRenderer = new GraphRenderer(mSamplesBuffer, r, g, b, true);
 		glCanvas.addGLEventListener(mGraphRenderer);
 		
 		animator = new Animator();

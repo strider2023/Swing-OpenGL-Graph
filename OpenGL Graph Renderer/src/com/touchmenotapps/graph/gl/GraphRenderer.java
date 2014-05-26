@@ -18,8 +18,8 @@ public class GraphRenderer extends AbstractRenderer {
 		mGraph.recalculate(mRatio);
 	}
 	
-	public GraphRenderer(SamplesBuffer samplesBuffer, int r, int g, int b) {
-		mGraph = new Graph(samplesBuffer, r, g, b);
+	public GraphRenderer(SamplesBuffer samplesBuffer, int r, int g, int b,  boolean showGrid) {
+		mGraph = new Graph(samplesBuffer, r, g, b, showGrid);
 	}
 
 	@Override

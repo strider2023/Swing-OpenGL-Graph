@@ -10,6 +10,8 @@ public class Graph {
 	private GraphDataSource mDataSource;
 	private ScreenBuffer mScreenBuffer;
 	private GraphColor graphColor;
+	private Grid mGrid;
+	private boolean drawGrid = false;
 
 	class GraphColor {
 		public int R, G, B;
@@ -20,9 +22,12 @@ public class Graph {
 		}
 	}
 	
-	public Graph(SamplesBuffer samplesBuffer, int r, int g, int b) {		
+	public Graph(SamplesBuffer samplesBuffer, int r, int g, int b, boolean showGrid) {		
 		graphColor=new GraphColor(r, g, b);
 		mDataSource = new GraphDataSource(samplesBuffer);
+		//Create the grid
+		mGrid = new Grid();
+		drawGrid = showGrid;
 	}
 
 	public void update(long ts) {
@@ -30,6 +35,8 @@ public class Graph {
 	}
 
 	public void draw(GL2 gl) {
+		if(drawGrid)
+			mGrid.draw(gl);	
 		gl.glEnableClientState (GL2.GL_VERTEX_ARRAY);
 		gl.glLineWidth(2f);
 		mScreenBuffer.setColor(gl);
@@ -40,6 +47,9 @@ public class Graph {
 	public void recalculate(float ratio) {
 		mGraphWidth = 2.f*ratio;
 		mGraphHeight = 2.0f;			
+		
+		mGrid.setBounds(-ratio, 1f, mGraphWidth, mGraphHeight, 2);
+		
 		mScreenBuffer =  new LineScreenBuffer(SAMPLES_IN_SCREEN, -ratio, 1f, mGraphWidth, mGraphHeight);
 		mScreenBuffer.setRGB(graphColor.R,graphColor.G,graphColor.B);
 	}				
